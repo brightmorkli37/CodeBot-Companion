@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
 
 def homepage(request):
@@ -16,6 +17,14 @@ def homepage(request):
     if request.method == 'POST':
         code = request.POST['code']
         lang = request.POST['lang']
+
+        if code == '':
+            messages.warning(request, 'Input Code to Inspect')
+
+        if lang == 'Select Programming Language':
+            messages.warning(request, "No Programming Language selected")
+
+        return redirect('homepage')
 
     template_name = 'codebot/homepage.html'
     context = {

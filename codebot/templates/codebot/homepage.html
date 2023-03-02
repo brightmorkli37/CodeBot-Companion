@@ -2,7 +2,6 @@
 {% load static %}
 {% block content %}
 
-<div class="container">
   
 {% if code %}
 
@@ -21,10 +20,11 @@
         {% csrf_token %}
 
         <div class="mb-3">
-        <textarea 
-            class="form-control" 
-            name="code" rows="3"
-            placeholder="Paste your code here for inspection..."></textarea>
+            <textarea 
+                class="form-control" 
+                name="code" rows="3"
+                placeholder="Paste your code here for inspection...">
+            </textarea>
         </div>
 
         <select class="form-select" name="code">
@@ -78,7 +78,6 @@
 
 {% endif %}
 
-</div>
 
 {% endblock content %}
 
