@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 openai = "*"
+django-environ = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
