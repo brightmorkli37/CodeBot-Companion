@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # third-party apps
 
     # custom apps
+    'codebot',
 ]
 
 MIDDLEWARE = [
