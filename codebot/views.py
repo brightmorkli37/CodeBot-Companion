@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
+# https://buy.stripe.com/aEUbIU1TAdfG7dgadp
 
 def homepage(request):
+    api_key = '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'
     lang_list = [
                     'c', 'clike', 'cpp', 'csharp', 'css', \
                     'dart', 'go', 'html', 'java', 'javascript', \
