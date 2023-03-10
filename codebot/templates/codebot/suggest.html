@@ -1,0 +1,83 @@
+{% extends 'codebot/base.html' %}
+{% load static %}
+{% block content %}
+
+  
+{% if response %}
+
+<section>
+    <pre>
+        <code class="line-numbers language-{{lang}}">
+
+            {{response}}
+
+        </code>
+    </pre> 
+</section>  
+<br><br>
+<section class="form">
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <textarea 
+                class="form-control" 
+                name="code" rows="3"
+                placeholder="Have A.I suggest code...">
+            </textarea>
+        </div>
+
+        <select class="form-select" name="code">
+            <option selected>Select Programming Language</option>
+            {% for lang in lang_list %}
+            <option value="{{ lang }}">{{ lang }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit" class="btn btn-dark mb-3">submit</button>
+
+    </form>
+</section>
+
+
+{% else %}
+
+<section>
+    <pre>
+        <code class="line-numbers language-python">
+            if name == "Bright":
+                print("Hello Bright")
+            else:
+                print("Hello friend!")
+        </code>
+    </pre> 
+</section>  
+<br><br>
+<section class="form">
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+        <textarea 
+            class="form-control" 
+            name="code" rows="3"
+            placeholder="Have A.I suggest code..."></textarea>
+        </div>
+
+        {% comment %} <select class="form-select" name="lang">
+            <option selected>Select Programming Language</option>
+            {% for lang in lang_list %}
+            <option value="{{ lang }}">{{ lang }}</option>
+            {% endfor %}
+        </select> {% endcomment %}
+        <br>
+        <button type="submit" class="btn btn-dark mb-3">submit</button>
+
+    </form>
+</section>
+
+{% endif %}
+
+
+{% endblock content %}
+

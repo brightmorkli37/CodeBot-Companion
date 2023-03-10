@@ -65,3 +65,45 @@ def homepage(request):
     }
     return render(request, template_name, context)
 
+
+
+def suggest(request):
+
+    code = ''
+
+    if request.method == 'POST':
+        code = request.POST['code']
+
+        # print(code)
+
+        if code == '':
+            messages.warning(request, 'Input Code to Inspect')
+            
+            return redirect('suggest')
+        
+        # OPEN AI CONFIG
+        # Key
+        openai.api_key = env('OPENAI_SECRET_KEY')
+        # Create OpenAI Instance
+        openai.Model.list()
+        #Make OpenAI Request
+        try:
+            response = openai.Completion.create(
+                engine = 'text-davinci-003',
+                prompt = f"Respond with only code. {code}",
+                temperature = 0, 
+                max_tokens = 1000,
+                top_p = 1.0,
+                frequency_penalty = 0.0,
+                presence_penalty = 0.0,
+            )
+            # parse response
+            response = (response["choices"][0]["text"].strip())
+            return render(request, 'codebot/suggest.html', {'response': response})
+        except Exception as e:
+            return render(request, 'codebot/suggest.html', {'response': e})
+            
+
+    template_name = 'codebot/suggest.html'
+    context  = {}
+    return render (request, template_name, context)
