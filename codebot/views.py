@@ -1,5 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+import environ
+import openai
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 
 def homepage(request):
@@ -27,6 +34,29 @@ def homepage(request):
             messages.warning(request, "No Programming Language selected")
             
             return redirect('homepage')
+        
+        # OPEN AI CONFIG
+        # Key
+        openai.api_key = env('OPENAI_SECRET_KEY')
+        # Create OpenAI Instance
+        openai.Model.list()
+        #Make OpenAI Request
+        try:
+            response = openai.Completion.create(
+                engine = 'text-davinci-003',
+                prompt = f"Respond with only code. Fix this {lang} code: {code}",
+                temperature = 0, 
+                max_tokens = 1000,
+                top_p = 1.0,
+                frequency_penalty = 0.0,
+                presence_penalty = 0.0,
+            )
+            # parse response
+            response = (response["choices"][0]["text"].strip())
+            return render(request, 'codebot/homepage.html', {'lang_list': lang_list, 'response': response})
+        except Exception as e:
+            return render(request, 'codebot/homepage.html', {'lang_list': lang_list, 'response': e})
+            
 
     template_name = 'codebot/homepage.html'
     context = {
@@ -34,3 +64,4 @@ def homepage(request):
         'lang': lang,
     }
     return render(request, template_name, context)
+

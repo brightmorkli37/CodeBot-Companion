@@ -3,13 +3,13 @@
 {% block content %}
 
   
-{% if code %}
+{% if response %}
 
 <section>
     <pre>
         <code class="line-numbers language-{{lang}}">
 
-            {{code}}
+            {{response}}
 
         </code>
     </pre> 
@@ -23,7 +23,7 @@
             <textarea 
                 class="form-control" 
                 name="code" rows="3"
-                placeholder="Paste your code here for inspection...">
+                placeholder="Paste your code here for auto-correction...">
             </textarea>
         </div>
 
@@ -61,7 +61,7 @@
         <textarea 
             class="form-control" 
             name="code" rows="3"
-            placeholder="Paste your code here for inspection..."></textarea>
+            placeholder="Paste your code here for auto-correction..."></textarea>
         </div>
 
         <select class="form-select" name="lang">
