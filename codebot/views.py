@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-# https://buy.stripe.com/aEUbIU1TAdfG7dgadp
 
 def homepage(request):
     lang_list = [
@@ -19,13 +18,15 @@ def homepage(request):
         code = request.POST['code']
         lang = request.POST['lang']
 
+        # print(code, lang)
+
         if code == '':
             messages.warning(request, 'Input Code to Inspect')
 
         if lang == 'Select Programming Language':
             messages.warning(request, "No Programming Language selected")
-
-        return redirect('homepage')
+            
+            return redirect('homepage')
 
     template_name = 'codebot/homepage.html'
     context = {
